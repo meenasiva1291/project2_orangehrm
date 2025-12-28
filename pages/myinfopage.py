@@ -7,49 +7,31 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.basepage import Basepage
 from locators.locators import locators as Locators
 
-class dashboard(Basepage):
-    def logout(self):
-        try:
-            # Wait for logout menu and click
-            logout_menu = self.wait_for_element_to_be_clickable(Locators.logoutmenu_locator)
-            # logout_menu = self.wait.until(EC.visibility_of_element_located(Locators.logoutmenu_locator))
-            logout_menu.click()
+class myinfo(Basepage):
 
-
-            # Wait for logout option and click
-            logout_option = self.wait.until(EC.visibility_of_element_located(Locators.logout_locator))
-            logout_option.click()
-
-            print("User logged out successfully")
-        except Exception as e:
-            print(f"Error during logout: {e}")
-
-    def menuitems_displayandfunction(self):
+    def myinfo_menu_displayandfunction(self):
         try:
             print("\n===== MENU NAVIGATION DETAILS =====\n")
 
             # Wait for the menu items to load (implicitly wait will help, but let's be explicit here)
-            self.wait_for_visibility(Locators.menu_locator)
+            self.wait_for_element_to_be_clickable(Locators.myinfo_locator).click()
 
-            # Get the first 8 menu items
-            menu_items: list[WebElement] = self.driver.find_elements(
-                By.XPATH, "//ul/li[contains(@class,'oxd-main-menu-item-wrapper')]"
-            )[:8]
+            # Get the my_info menu items
+            self.wait_for_visibility(Locators.myinfo_menu)
+            # menu_items: list[WebElement] = self.wait_for_element_to_be_clickable(Locators.myinfo_menu)
+            menu_items: list[WebElement] = self.driver.find_elements(By.XPATH,"//div[contains(@class,'orangehrm-tabs')]/div")
 
             for index in range(len(menu_items)):
+
                 # Re-fetch the menu items list to avoid stale element reference
-                menu_items = self.driver.find_elements(
-                    By.XPATH, "//ul/li[contains(@class,'oxd-main-menu-item-wrapper')]"
-                )
-
+                menu_items = self.driver.find_elements(By.XPATH,"//div[contains(@class,'orangehrm-tabs')]/div")
                 menu_item = menu_items[index]
-
                 # Get menu name
                 menu_name = menu_item.text.strip()
-
                 # Scroll into view and click the menu item
                 self.driver.execute_script("arguments[0].scrollIntoView(true);", menu_item)
-                menu_item.click()
+                self.wait_for_clickable(menu_item)
+                # time.sleep(3)
 
                 # Wait for page title or another specific condition (e.g., wait for a page element to load)
                 self.wait.until(EC.title_is("OrangeHRM"))
@@ -65,10 +47,12 @@ class dashboard(Basepage):
                 print("-" * 50)
 
                 # Navigate back to the dashboard
-                self.driver.back()
+                # self.driver.back()
 
                 # Wait until the page is back on the dashboard (you could use a specific element or title check here)
                 self.wait.until(EC.title_is("OrangeHRM"))
 
         except Exception as e:
             print(f"Error during menu navigation: {e}")
+
+

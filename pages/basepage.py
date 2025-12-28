@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -15,6 +17,14 @@ class Basepage:
 
     def wait_for_clickable(self, locator):
         return self.wait.until(EC.element_to_be_clickable(locator))
+
+    def employee_name(self,locator):
+        employee_name = self.wait_for_element(locator)
+        employee_name.send_keys("a")
+        time.sleep(6)  # Wait for suggestions to appear
+        employee_name.send_keys(Keys.ARROW_DOWN)
+        # time.sleep(5)
+        employee_name.send_keys(Keys.ENTER)
 
     def enter_text(self, locator, text):
         element = self.wait_for_visibility(locator)

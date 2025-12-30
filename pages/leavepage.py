@@ -19,7 +19,7 @@ class assign_leave(Basepage):
             assert url_to_be("https://opensource-demo.orangehrmlive.com/web/index.php/leave/assignLeave"),"URL Mismatch"
             self.employee_name(Locators.employee_name)
             self.select_dropdown_option(Locators.leave_type,Locators.list_locator)
-            self.enter_text(Locators.from_date,"2025-29-12")
+            self.enter_text(Locators.from_date,"2025-12-31")
             # self.enter_text(Locators.to_date,"2025-03-12")
             self.enter_text(Locators.comments,"Assigning leave to employee")
             self.wait_for_clickable(Locators.assign_button).click()

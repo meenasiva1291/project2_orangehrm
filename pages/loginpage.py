@@ -44,7 +44,12 @@ class LoginPage(Basepage):
             self.wait_for_element_to_be_clickable(Locators.loginbutton_click).click()
             assert url_to_be(
                 "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"), "URL mismatch"
-            # print("user logged in successfully and redirected to dashboard page")
 
         except Exception as e:
             print(e)
+
+
+
+
+
+

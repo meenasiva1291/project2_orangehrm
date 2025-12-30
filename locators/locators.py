@@ -17,9 +17,17 @@ class locators:
         # adduser_locator = (By.CSS_SELECTOR, "oxd-button oxd-button--medium oxd-button--secondary")
         adduser_locator = (By.XPATH,"// button[text() = ' Add ']")
         menu_locator = (By.XPATH, "//ul/li[contains(@class,'oxd-main-menu-item-wrapper')]")
+        search_username_input = (By.XPATH,"//label[text()='Username']/ancestor::div[contains(@class,'oxd-input-group')]//input")
+        user_search_button = (By.XPATH,"//button[text()=' Search ']")
+        RESULT_USERNAME_IN_TABLE = "//div[contains(@class,'oxd-table-body')]//a[text()='{}']"
+        table_container = (By.XPATH, "//div[contains(@class,'oxd-table-body')]")
+        no_records_text = (By.XPATH, "//span[text()='No Records Found']")
+        record_found = (By.XPATH,"//span[text()='(1) Record Found']")
+
+        # result_username_cell = By.XPATH,"//div[text()='{}']"
 
         #usercreation page
-        admin_locator = (By.XPATH, "// span[text() = 'Admin']")
+        admin_locator = (By.XPATH, "//span[text() = 'Admin']")
         userrole_locator = (By.XPATH, "(//i[@class='oxd-icon bi-caret-down-fill oxd-select-text--arrow'])[1]")
         list_locator = (By.XPATH, "//div[@role='listbox']")
         employee_name = (By.XPATH, '//input[@placeholder="Type for hints..."]')
@@ -46,6 +54,16 @@ class locators:
         assign_button = (By.XPATH,"//button[text()=' Assign ']")
         confirm_button = (By.XPATH,"//button[text()=' Ok ']")
         success_message= (By.ID,"oxd-toaster_1")
+
+        #claims page
+        claim_option = (By.XPATH,"//span[text()='Claim']")
+        submit_claim = (By.XPATH,"//a[text()='Submit Claim']")
+        # event_dropdown = ((By.CSS_SELECTOR,".oxd-select-text--arrow")[1])
+        # currency_dropdown = ((By.CSS_SELECTOR,".oxd-select-text--arrow")[2])
+        create_button = (By.XPATH,"//button[text()=' Create ']")
+        submit_button = (By.XPATH,"//button[text()=' Submit ']")
+
+
 
 
 

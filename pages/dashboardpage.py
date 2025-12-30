@@ -1,11 +1,15 @@
 import time
 from asyncio import wait_for
+from operator import truediv
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.devtools.v136.tracing import record_clock_sync_marker
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from pages.basepage import Basepage
 from locators.locators import locators as Locators
+from pages.usercreationpage import new_username
+
 
 class dashboard(Basepage):
     def logout(self):
@@ -72,3 +76,24 @@ class dashboard(Basepage):
 
         except Exception as e:
             print(f"Error during menu navigation: {e}")
+
+    def is_username_present_in_table(self):
+        # Enter username
+        search_input = self.wait_for_visibility(
+            Locators.search_username_input
+        )
+        search_input.clear()
+        search_input.send_keys(new_username)
+
+        # Click Search
+        self.wait_for_element_to_be_clickable(
+            Locators.user_search_button
+        ).click()
+
+        #1 record found should display
+        record_table = self.wait_for_visibility(Locators.record_found)
+        if record_table.is_displayed():
+            print("New user displayed in table successfully")
+        else:
+            print("New user not displayed")
+

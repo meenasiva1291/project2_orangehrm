@@ -1,14 +1,16 @@
-import time
+import uuid
+from ast import Bytes
 
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators.locators import locators as Locators
 
-
 from pages.basepage import Basepage
 
+# Generate unique username
+new_username = f"TestUser_{uuid.uuid4().hex[:8]}"
+# Generate unique password
+new_password = f"{new_username}@123"
 
 class UserManagement(Basepage):
     def addnewuser(self):
@@ -25,28 +27,29 @@ class UserManagement(Basepage):
             self.select_dropdown_option(Locators.userrole_locator, Locators.list_locator)
             self.employee_name(Locators.employee_name)
 
-            # Enter Employee Name
-            # employee_name = self.wait_for_element(Locators.employee_name)
-            # employee_name.send_keys("a")
-            # time.sleep(6)  # Wait for suggestions to appear
-            # employee_name.send_keys(Keys.ARROW_DOWN)
-            # employee_name.send_keys(Keys.ENTER)
-            # print("Employee name selected successfully.")
-
             # Select User Status
             self.select_dropdown_option(Locators.user_status, Locators.list_locator)
 
             # Enter Username
             admin_username = self.wait_for_element(Locators.admin_username)
-            admin_username.send_keys("Test1234456")
+            admin_username.clear()
+            admin_username.send_keys(new_username)
+
+            print(f"Generated Username: {new_username}")
 
             # Enter Password
             admin_password = self.wait_for_element(Locators.admin_password)
-            admin_password.send_keys("abcde12_91")
+            admin_password.clear()
+            admin_password.send_keys(new_password)
+
+            print(f"Generated password: {new_password}")
 
             # Re-enter Password
             admin_reenter_password = self.wait_for_element(Locators.admin_repassword)
-            admin_reenter_password.send_keys("abcde12_91")
+            admin_reenter_password.clear()
+            admin_reenter_password.send_keys(new_password)
+
+            print(f"Generated reenter_password: {new_password}")
 
             # Submit the form
             submit = self.wait_for_element_to_be_clickable(Locators.submit)
@@ -65,3 +68,13 @@ class UserManagement(Basepage):
             print(f"An error occurred during the user creation process: {e}")
             # Take a screenshot for debugging if needed
             self.driver.save_screenshot('user_addition_failure.png')
+
+    def login_asnewuser(self):
+        try:
+            self.enter_text(new_username)
+            self.enter_text(new_password)
+
+
+        except Exception as e:
+            print(e)
+

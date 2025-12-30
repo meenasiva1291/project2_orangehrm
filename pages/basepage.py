@@ -1,4 +1,5 @@
 import time
+import uuid
 
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
@@ -7,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class Basepage:
+
 
     def __init__(self, driver, timeout=15):
         self.driver = driver
@@ -33,6 +35,8 @@ class Basepage:
 
     def click(self, locator):
         self.wait_for_clickable(locator).click()
+
+
 
     def get_text(self, locator):
         return self.wait_for_visibility(locator).text
@@ -68,3 +72,4 @@ class Basepage:
 
         except Exception as e:
             print(f"Error selecting dropdown option: {e}")
+

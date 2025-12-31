@@ -8,7 +8,7 @@ from pages.usercreationpage import UserManagement, new_username, new_password
 from tests.read_data_from_xl import read_data, write_result
 
 
-# #call the below function to Log in with admin credentials
+#call the below function to Log in with admin credentials
 def test_valid_login_credentials(driver):
     valid_credentials = LoginPage(driver)
     valid_credentials.credentials_validation("Admin", "admin123")

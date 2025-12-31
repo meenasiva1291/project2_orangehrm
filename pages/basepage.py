@@ -5,10 +5,10 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from locators.locators import locators as Locators
 
 
 class Basepage:
-
 
     def __init__(self, driver, timeout=15):
         self.driver = driver
@@ -35,8 +35,6 @@ class Basepage:
 
     def click(self, locator):
         self.wait_for_clickable(locator).click()
-
-
 
     def get_text(self, locator):
         return self.wait_for_visibility(locator).text
@@ -65,11 +63,42 @@ class Basepage:
             options = listbox.find_elements(By.XPATH, ".//div")
             options_list = list(options)
             if len(options_list) > 1:
-                options_list[1].click()  # Click the second option (index 1)
+                options_list[1].click()  # Click the first option (index 1)
                 print("Selected option at index 1.")
             else:
                 print("Option at index 1 not found.")
 
         except Exception as e:
             print(f"Error selecting dropdown option: {e}")
+
+    def select_dropdown_option2(self, dropdown_locator, list_locator, option_index=2):
+        """Helper function to select an option from a dropdown."""
+        try:
+            dropdown = self.wait_for_element_to_be_clickable(dropdown_locator)
+            dropdown.click()
+            listbox = self.wait_for_element(list_locator)
+            options = listbox.find_elements(By.XPATH, ".//div")
+            options_list = list(options)
+            if len(options_list) > 1:
+                options_list[2].click()  # Click the second option (index 1)
+                print("Selected option at index 2.")
+            else:
+                print("Option at index 2 not found.")
+
+        except Exception as e:
+            print(f"Error selecting dropdown option: {e}")
+
+
+    def is_text_present(self, locator, text, timeout=10):
+        by, value = locator
+        value = value.format(text)
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located((by, value))
+            )
+            return True
+        except:
+            return False
+
+
 

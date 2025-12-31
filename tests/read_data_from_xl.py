@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 
-EXCEL_PATH = '../test_data/test_data.xlsx'
+EXCEL_PATH = 'C://Users//HP//PycharmProjects//pythonProject//project2_orangehrm//test_data//test_data.xlsx'
 SHEET_NAME = "testdata"
 
 def read_data():

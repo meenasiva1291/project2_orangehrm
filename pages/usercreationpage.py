@@ -1,5 +1,4 @@
 import uuid
-from ast import Bytes
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -24,7 +23,7 @@ class UserManagement(Basepage):
             adduser.click()
 
             # Select User Role
-            self.select_dropdown_option(Locators.userrole_locator, Locators.list_locator)
+            self.select_dropdown_option2(Locators.userrole_locator, Locators.list_locator)
             self.employee_name(Locators.employee_name)
 
             # Select User Status
@@ -55,7 +54,10 @@ class UserManagement(Basepage):
             submit = self.wait_for_element_to_be_clickable(Locators.submit)
             submit.click()
 
-            print("New user added successfully.")
+            # verify success toaster
+            success_message = self.wait_for_visibility(Locators.success_toaster)
+            assert "Success" in success_message.text
+            print("success message displayed")
 
             expected_url = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers"
             # Current URL
@@ -64,17 +66,13 @@ class UserManagement(Basepage):
             # Assert that the current URL matches the expected URL
             assert current_url == expected_url, f"URL mismatch: Expected {expected_url}, but got {current_url}"
 
+
+
+
         except Exception as e:
             print(f"An error occurred during the user creation process: {e}")
             # Take a screenshot for debugging if needed
             self.driver.save_screenshot('user_addition_failure.png')
 
-    def login_asnewuser(self):
-        try:
-            self.enter_text(new_username)
-            self.enter_text(new_password)
 
-
-        except Exception as e:
-            print(e)
 

@@ -1,9 +1,4 @@
-import time
-from asyncio import wait_for
-from operator import truediv
-
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.devtools.v136.tracing import record_clock_sync_marker
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from pages.basepage import Basepage
@@ -18,7 +13,6 @@ class dashboard(Basepage):
             logout_menu = self.wait_for_element_to_be_clickable(Locators.logoutmenu_locator)
             # logout_menu = self.wait.until(EC.visibility_of_element_located(Locators.logoutmenu_locator))
             logout_menu.click()
-
 
             # Wait for logout option and click
             logout_option = self.wait.until(EC.visibility_of_element_located(Locators.logout_locator))
@@ -92,6 +86,7 @@ class dashboard(Basepage):
 
         #1 record found should display
         record_table = self.wait_for_visibility(Locators.record_found)
+        self.driver.save_screenshot("new_user_verified.png")
         if record_table.is_displayed():
             print("New user displayed in table successfully")
         else:
